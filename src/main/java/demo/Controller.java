@@ -15,12 +15,13 @@ import com.justinsb.etcd.EtcdResult;
 @RestController
 public class Controller {
 	
-	@RequestMapping(value="/getcount",method=RequestMethod.GET)
+	@RequestMapping(value="/api/v1/counter",method=RequestMethod.GET)
 	public int getCount() throws EtcdClientException {
+		//EtcdClient client = new EtcdClient(URI.create("http://54.67.103.220:4001/"));
 		EtcdClient client = new EtcdClient(URI.create("http://54.183.58.249:4001/"));
 		//System.out.println("Reached");
 		EtcdResult result ;
-		String key = "/watch";
+		String key = "/010003500";
 		
 		result = client.get(key);
 		//System.out.println("Reached 2");
@@ -31,6 +32,7 @@ public class Controller {
 		result = client.set(key, String.valueOf(counter));
 		System.out.println("New value counter for "+key+" is: "+counter);
 		
+		EtcdClient.close(null);
 		return counter;
 	}
 	
